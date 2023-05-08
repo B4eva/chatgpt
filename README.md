@@ -1,6 +1,6 @@
-# ask
+# Ask
 
-A new Flutter project.
+A chatbot build with openAi chatgpt 
 
 ## Getting Started
 
