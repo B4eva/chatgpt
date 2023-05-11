@@ -4,6 +4,7 @@ import 'package:ask/colors.dart';
 import 'package:ask/constants.dart';
 import 'package:ask/models/chat_message_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:http/http.dart' as http;
 
@@ -35,7 +36,7 @@ class _AskPageState extends State<AskPage> {
   }
 
   Future<String> generateResponse(String prompt) async {
-    const String apiKeyValue = apiKey;
+    final String? apiKeyValue = dotenv.env['API_KEY'];
     var url = Uri.https("api.openai.com", "/v1/completions");
 
     final response = await http.post(url,
@@ -48,7 +49,7 @@ class _AskPageState extends State<AskPage> {
           'prompt': prompt,
           'temperature': 0.6,
           'top_p': 1,
-          "max_tokens": 300,
+          "max_tokens": 600,
           'frequency_penalty': 0.0,
           'presence_penalty': 0.0
         }));
@@ -61,6 +62,7 @@ class _AskPageState extends State<AskPage> {
 
   @override
   Widget build(BuildContext context) {
+    print('here is a apikey $apiKey');
     return Scaffold(
       appBar: AppBar(
         actions: [
